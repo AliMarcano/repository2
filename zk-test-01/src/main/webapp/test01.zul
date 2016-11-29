@@ -1,0 +1,11 @@
+<?page title="teste01" contentType="text/html;charset=UTF-8"?>
+<zk>
+<window id="windowtest01" apply="org.test.zk.CTestcontroller" title="teste01" border="normal" width="250px" height="250px" >
+  <button id="prueba1" label="original1"/>
+  <button id="superprueba" label="original2"/>
+  <button id="obtengo1" label="original3"/>
+  <selectbox id="seleccion" />
+  <selectbox id="person" />
+
+</window>
+</zk>
