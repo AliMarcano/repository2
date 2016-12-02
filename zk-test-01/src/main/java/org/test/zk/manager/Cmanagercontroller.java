@@ -18,7 +18,7 @@ public class Cmanagercontroller extends SelectorComposer<Component> {
    
     @Listen ("onClick=#idadd")
     public void botonadd(Event event){
-        
+        //en comentarios porque ?
         //Map arg = new HashMap();
         //arg.put("someName", someValue);
        Window win = ( Window ) Executions.createComponents("/dialog.zul",null , null); //llama a la pagina dialog como una ventana emergente

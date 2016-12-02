@@ -14,7 +14,7 @@
        <button id="idadd" label="Add" style="float:right;margin-left:5px;"/>
        <button id="idamodify" label="Modify"  style="float:right;margin-left:5px;"/>
        <button id="idDelete" label="Delete" style="float:right;margin-left:5px;"/>
-     
+       <!-- botones para las acciones -->
      </div>
    
    </vlayout>
