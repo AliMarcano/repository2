@@ -1,6 +1,6 @@
 <?page title="person" contentType="text/html;charset=UTF-8"?>
 <zk>
-  <window apply="org.test.zk.dialog.Cdialogcontroller" title="person" border="normal" hflex="min" > 
+  <window id="windowpersona" xmlns:w="client" apply="org.test.zk.dialog.Cdialogcontroller" title="person" border="normal" hflex="min" > <!-- xmlns es nesesario para insertar codigo en el xml por loq ue parese --> 
   
   <vlayout width="343px">
     <grid hflex="min" >
@@ -8,7 +8,20 @@
         
         <row>
           <label id="labelid" value="ID:" width="150px" />
-          <textbox id="textid" value="" width="130px" tabindex="1" />
+          
+          <textbox id="textid" value="" width="130px" tabindex="1" >  
+            <attribute w:name= "doKeyPress_">
+              <![CDATA[
+                function(evt)
+                {
+                    if(!this._shallIgnore(evt,"0123456789"))
+                        this.$doKeyPress_(ent);
+                }
+                       
+              ]]>
+            </attribute>  
+          </textbox>
+        
         </row>
         
         <row>

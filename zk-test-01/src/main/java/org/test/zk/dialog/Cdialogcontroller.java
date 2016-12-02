@@ -12,6 +12,7 @@ import org.zkoss.zul.ListModelList;
 import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Selectbox;
 import org.zkoss.zul.Textbox;
+import org.zkoss.zul.Window;
 
 
 
@@ -20,6 +21,8 @@ public class Cdialogcontroller extends SelectorComposer<Component> {
     private static final long serialVersionUID = 2127738451903407979L;
     protected ListModelList<String> sexo = new ListModelList<String>();//select sexo
 
+    @Wire
+    Window windowpersona;
     @Wire
     Label labelid;
     @Wire
@@ -75,11 +78,15 @@ public class Cdialogcontroller extends SelectorComposer<Component> {
         
         //System.out.println("Hello Accept desu");
         Messagebox.show("ID = "+textid.getValue()+" Nombre= "+textnombre.getValue()+" Apellido= "+textapellido.getValue()+" Comentario= "+ textcomenta.getValue(), "Aceptar", Messagebox.OK, Messagebox.INFORMATION);
+        windowpersona.detach();
+    
     }   
     @Listen("onClick=#idcancelar")
     public void onClickcancelar(Event event){
         //System.out.println("Hello Cancel Des");
         Messagebox.show("Cancelar", "Canlel", Messagebox.OK, Messagebox.EXCLAMATION);
+        windowpersona.detach();
+    
     }    
     
 }
