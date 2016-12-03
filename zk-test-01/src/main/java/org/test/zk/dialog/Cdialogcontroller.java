@@ -56,7 +56,7 @@ public class Cdialogcontroller extends SelectorComposer<Component> {
                 super.doAfterCompose(comp);
                 fecha.setFormat( "dd-MM-yyyy" );//arreglamos el error de formato, dandole un formato deseado en tiempo de ejecucion
                 //cargamos al modelo las opciones
-                sexo.add( "Femenino" );
+                sexo.add( "Femenino" );//otrocomentario
                 sexo.add( "Masculino" );
                 //se las asignamos a el selec
                 selectgenero.setModel( sexo );
