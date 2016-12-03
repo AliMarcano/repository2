@@ -15,7 +15,7 @@
                 function(evt)
                 {
                     if(!this._shallIgnore(evt,"0123456789"))
-                        this.$doKeyPress_(ent);
+                        this.$doKeyPress_(ent);//valida que solo sean numeros
                 }
                        
               ]]>

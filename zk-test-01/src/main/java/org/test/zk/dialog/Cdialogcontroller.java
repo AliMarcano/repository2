@@ -78,13 +78,13 @@ public class Cdialogcontroller extends SelectorComposer<Component> {
         
         //System.out.println("Hello Accept desu");
         Messagebox.show("ID = "+textid.getValue()+" Nombre= "+textnombre.getValue()+" Apellido= "+textapellido.getValue()+" Comentario= "+ textcomenta.getValue(), "Aceptar", Messagebox.OK, Messagebox.INFORMATION);
-        windowpersona.detach();
+        windowpersona.detach();//detach se encarga de cerrar la ventana
     
     }   
     @Listen("onClick=#idcancelar")
     public void onClickcancelar(Event event){
         //System.out.println("Hello Cancel Des");
-        Messagebox.show("Cancelar", "Canlel", Messagebox.OK, Messagebox.EXCLAMATION);
+        Messagebox.show("Cancelar", "Canlel", Messagebox.OK, Messagebox.EXCLAMATION);//mmessagebox muestra una ventana emergente con un mensaje
         windowpersona.detach();
     
     }    
