@@ -79,7 +79,7 @@ public class Cdialogcontroller extends SelectorComposer<Component> {
                     sexo.addToSelection( "Masculino" );
                 }              
                 fecha.setValue( java.sql.Date.valueOf( personmodify.getNacio() )  );
-                textcomenta.setValue( personmodify.getComentario() );
+                textcomenta.setValue( personmodify.getComentario() );//aqui cargamos todo a la vista
           
                 
             }
