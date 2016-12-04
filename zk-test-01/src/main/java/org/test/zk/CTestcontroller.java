@@ -1,5 +1,7 @@
 package org.test.zk;
 
+import java.time.LocalDate;
+
 import org.test.zk.dao.Cperson;
 import org.zkoss.zk.ui.Component;/** libreria component*/
 import org.zkoss.zk.ui.event.Event;/** libreria del evento*/
@@ -41,10 +43,10 @@ public class CTestcontroller extends SelectorComposer<Component> implements Item
         
        // windowtest01.setTitle( "Click Button test 01" );/**cambia el titulod e la ventana*/
        // prueba2.setLabel( "yea baby" );
-       dataModelpersona.add( new Cperson("24437593","Ali","Fidel") ) ;
-       dataModelpersona.add( new Cperson("21xxxxxx","German","Isaac") ) ;
-       dataModelpersona.add( new Cperson("24xxxxxx","Juan","Manuel") ) ;
-       dataModelpersona.add( new Cperson("24xxxxxx","Roger","nose D:") ) ;
+       dataModelpersona.add( new Cperson("24437593","Ali","marcano",1,LocalDate.parse( "1995-04-24" ),"lolicon") ) ;
+       dataModelpersona.add( new Cperson("21xxxxxx","German","Cedeño",1, LocalDate.parse( "1994-08-02" ),"kudere a live") ) ;
+       dataModelpersona.add( new Cperson("24xxxxxx","Juan","Blanco",1, LocalDate.parse( "1995-09-28" ),"nekofilico") ) ;
+       dataModelpersona.add( new Cperson("24xxxxxx","Roger","Paesani",1, LocalDate.parse( "1995-05-24" ),"ui si un comentario") ) ;
        
        person.setModel( dataModelpersona );
        person.setItemRenderer( this );

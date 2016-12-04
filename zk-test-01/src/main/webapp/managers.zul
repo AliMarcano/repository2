@@ -1,9 +1,18 @@
 <?page title="manager" contentType="text/html;charset=UTF-8"?>
 <zk>
   <window xmlns:w="client" position="center, center" apply="org.test.zk.manager.Cmanagercontroller" title="Personmanager" border="normal" hflex="min" > 
-     <vlayout width="343px">
+     <vlayout width="600px">
    
      <listbox id="listabox" width ="100%" height="350px">
+        <listhead sizable="true">
+                <listheader label="ID" />
+                <listheader label="Nombre" />
+                <listheader label="Apellido" />
+                <listheader label="Genero" />
+                <listheader label="Cumpleaños" />
+                <listheader label="Comentario" />
+        </listhead>
+     
      
      <!-- aqui se escribira el contenido cuando se precione algun boton -->
      
@@ -11,9 +20,9 @@
    
      <div id ="containerperson">
      
-       <button id="idadd" label="Add" style="float:right;margin-left:5px;"/>
-       <button id="idamodify" label="Modify"  style="float:right;margin-left:5px;"/>
        <button id="idDelete" label="Delete" style="float:right;margin-left:5px;"/>
+       <button id="idmodify" label="Modify"  style="float:right;margin-left:5px;"/>
+       <button id="idadd" label="Add" style="float:right;margin-left:5px;"/>
        <!-- botones para las acciones -->
      </div>
    

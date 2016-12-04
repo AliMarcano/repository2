@@ -1,7 +1,10 @@
 package org.test.zk.dialog;
 
 
+import org.test.zk.dao.Cperson;
 import org.zkoss.zk.ui.Component;
+import org.zkoss.zk.ui.Execution;
+import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.select.SelectorComposer;
 import org.zkoss.zk.ui.select.annotation.Listen;
@@ -63,6 +66,21 @@ public class Cdialogcontroller extends SelectorComposer<Component> {
                 //colocamos Femenico como 1a opcion que se muestra para que el selec no se vea vacio
                 selectgenero.setSelectedIndex( 0 );
                 sexo.addToSelection( "Femenino" );
+                
+                final Execution execution = Executions.getCurrent();
+                Cperson personmodify =(Cperson)execution.getArg().get( "personmodify" );
+                
+                textid.setValue( personmodify.getId() );
+                textnombre.setValue( personmodify.getName() );
+                textapellido.setValue( personmodify.getSecondname() );
+                if(personmodify.getGenero() == 0 ){
+                    sexo.addToSelection( "Femenino" );
+                }else{
+                    sexo.addToSelection( "Masculino" );
+                }              
+                fecha.setValue( java.sql.Date.valueOf( personmodify.getNacio() )  );
+                textcomenta.setValue( personmodify.getComentario() );
+          
                 
             }
             catch ( Exception e ) {
