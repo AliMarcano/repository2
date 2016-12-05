@@ -1,7 +1,12 @@
 package org.test.zk.dialog;
 
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
+
 import org.test.zk.dao.Cperson;
+import org.test.zk.manager.Cmanagercontroller;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Execution;
 import org.zkoss.zk.ui.Executions;
@@ -21,7 +26,10 @@ import org.zkoss.zul.Window;
 
 public class Cdialogcontroller extends SelectorComposer<Component> {
 
+    
     private static final long serialVersionUID = 2127738451903407979L;
+    protected Cmanagercontroller mana = new Cmanagercontroller();
+    protected ListModelList< Cperson > dataModel = new ListModelList<Cperson>();
     protected ListModelList<String> sexo = new ListModelList<String>();//select sexo
 
     @Wire
@@ -95,8 +103,27 @@ public class Cdialogcontroller extends SelectorComposer<Component> {
     public void onClickaceptar (Event event){
         
         //System.out.println("Hello Accept desu");
-        Messagebox.show("ID = "+textid.getValue()+" Nombre= "+textnombre.getValue()+" Apellido= "+textapellido.getValue()+" Comentario= "+ textcomenta.getValue(), "Aceptar", Messagebox.OK, Messagebox.INFORMATION);
-        windowpersona.detach();//detach se encarga de cerrar la ventana
+        //Messagebox.show("ID = "+textid.getValue()+" Nombre= "+textnombre.getValue()+" Apellido= "+textapellido.getValue()+" Comentario= "+ textcomenta.getValue(), "Aceptar", Messagebox.OK, Messagebox.INFORMATION);
+            
+            
+            
+            Cperson persona = new Cperson(textid.getValue(), textnombre.getValue(), textapellido.getValue(), 0, null , textcomenta.getValue());
+           
+            Messagebox.show(textnombre.getValue()+"primero", "Cancel", Messagebox.OK, Messagebox.EXCLAMATION);//mmessagebox muestra una ventana emergente con un mensaje
+            
+
+            //Map<String,Object> arg = new HashMap<String,Object>();
+            
+            
+            //arg.put( "reload", persona );         
+              
+            
+            mana.reload(persona);
+            
+            windowpersona.detach();//detach se encarga de cerrar la ventana
+        
+        
+        
     
     }   
     @Listen("onClick=#idcancelar")

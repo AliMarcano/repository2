@@ -1,11 +1,18 @@
 package org.test.zk.manager;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
+import javax.swing.ListModel;
+
 import org.test.zk.dao.Cperson;
 import org.zkoss.zk.ui.Component;
+import org.zkoss.zk.ui.Execution;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.select.SelectorComposer;
@@ -130,12 +137,13 @@ public class Cmanagercontroller extends SelectorComposer<Component> {
                 
                 
                 dataModel.setMultiple( true ); //por si quieres elecion multiple en la lista
-                
                 listabox.setModel( dataModel );
-                
-                
                 listabox.setItemRenderer( new Rendererpersonas() );
                 
+              
+       
+              
+              
             }
             catch ( Exception e ) {
               
@@ -148,6 +156,44 @@ public class Cmanagercontroller extends SelectorComposer<Component> {
     
     
     //------------------------------------------- inicio añadir---------------------------------------------------------------------
+    
+    
+    public void reload(Cperson person){
+        
+
+        List<Cperson> lista = dataModel.getInnerList();
+        
+        
+        while(lista.listIterator().hasNext()){
+            
+            if(dataModel.listIterator().next().getId()==person.getId()){
+                Messagebox.show("cambia", "Cancel", Messagebox.OK, Messagebox.EXCLAMATION);
+            }
+           
+           //Cperson person2= Selecteditem.iterator().next();
+           
+           Messagebox.show(person.getName()+"entra", "Cancel", Messagebox.OK, Messagebox.EXCLAMATION);
+
+        }
+        
+      /*  
+        while( Cperson ){
+            
+            Messagebox.show(person.getName()+"segundo1.0", "Cancel", Messagebox.OK, Messagebox.EXCLAMATION);
+            if(iterador.next().getId()  ==person.getId()){
+                Messagebox.show(person.getName()+"segundo", "Cancel", Messagebox.OK, Messagebox.EXCLAMATION);
+               // Cperson person= Selecteditem.iterator().next();    
+                //dataModel.   ( person.getName() );
+                
+            }     
+         }*/
+      //  listabox.setModel( dataModel );
+      //  listabox.setItemRenderer( new Rendererpersonas() );
+       //escribir lo modificado fin  
+        
+    }
+    
+    
     
     
     @Listen ("onClick=#idadd")
@@ -179,10 +225,6 @@ public class Cmanagercontroller extends SelectorComposer<Component> {
              }else{
                  mostra= person.getId()+" "+person.getName()+" "+person.getSecondname();
              }
-             
-             
-               
-     
                
            }
            Messagebox.show("Seguro desea eliminar "+ Integer.toString( Selecteditem.size())+" de los registros \n"+mostra , "Eliminar", Messagebox.OK  | Messagebox.CANCEL, Messagebox.QUESTION, new org.zkoss.zk.ui.event.EventListener() {
@@ -235,6 +277,7 @@ public class Cmanagercontroller extends SelectorComposer<Component> {
             Messagebox.show( "No seleccionaste nada");
         }
         
+   
         
     }
     
