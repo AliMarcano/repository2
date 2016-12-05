@@ -99,32 +99,23 @@ public class Cdialogcontroller extends SelectorComposer<Component> {
 
      }
     
+  
     @Listen("onClick=#idaceptar")
     public void onClickaceptar (Event event){
         
-        //System.out.println("Hello Accept desu");
-        //Messagebox.show("ID = "+textid.getValue()+" Nombre= "+textnombre.getValue()+" Apellido= "+textapellido.getValue()+" Comentario= "+ textcomenta.getValue(), "Aceptar", Messagebox.OK, Messagebox.INFORMATION);
-            
-            
-            
+        
+            Messagebox.show("ID = "+textid.getValue()+" Nombre= "+textnombre.getValue()+" Apellido= "+textapellido.getValue()+" Comentario= "+ textcomenta.getValue(), "Aceptar", Messagebox.OK, Messagebox.INFORMATION);
+        
             Cperson persona = new Cperson(textid.getValue(), textnombre.getValue(), textapellido.getValue(), 0, null , textcomenta.getValue());
-           
-            Messagebox.show(textnombre.getValue()+"primero", "Cancel", Messagebox.OK, Messagebox.EXCLAMATION);//mmessagebox muestra una ventana emergente con un mensaje
             
-
+            mana.getpersonas( persona );
+    
+            windowpersona.detach();//detach se encarga de cerrar la ventana
+   
             //Map<String,Object> arg = new HashMap<String,Object>();
             
-            
-            //arg.put( "reload", persona );         
-              
-            
-            mana.reload(persona);
-            
-            windowpersona.detach();//detach se encarga de cerrar la ventana
-        
-        
-        
-    
+            //arg.put( "reload", persona ); 
+          //System.out.println("Hello Accept desu");
     }   
     @Listen("onClick=#idcancelar")
     public void onClickcancelar(Event event){

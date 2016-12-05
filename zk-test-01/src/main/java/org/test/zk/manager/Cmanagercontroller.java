@@ -36,7 +36,10 @@ public class Cmanagercontroller extends SelectorComposer<Component> {
     
     public class Rendererpersonas implements ListitemRenderer<Cperson>{
         
+        
 
+        
+        
         @Override
         public void render( Listitem lista, Cperson persona, int arg2 ) throws Exception {
             
@@ -95,10 +98,51 @@ public class Cmanagercontroller extends SelectorComposer<Component> {
      }
 
 
-    
-    
     @Wire
     Listbox listabox;
+    
+   
+    public void getpersonas(Cperson personP) {
+        
+        //List<Cperson> person = new ArrayList<Cperson>();
+        
+        //person=dataModel;
+        Set<Cperson> Se = dataModel.getSelection();
+        
+        //el error es dataModel me viene vacio itente varias formas pero no funciono 
+        
+        
+        for (Iterator<Cperson> i = Se.iterator(); i.hasNext();) {
+             Cperson persona = i.next();
+            
+             Messagebox.show("entra", "Cancel", Messagebox.OK, Messagebox.EXCLAMATION);
+             
+            if (persona.getId()== personP.getId()){
+                Messagebox.show("cambia", "Cancel", Messagebox.OK, Messagebox.EXCLAMATION);
+                
+                //person.add(tmp);
+            }
+        }
+        
+    }
+    
+   // public void reload( Cperson person){
+
+     //Listitem itera = listabox.getSelectedItem();
+     
+    // for(Listitem sele :  )){
+         
+   //  }
+     
+     
+     /*
+         for(Listitem listas: itera){
+             Cperson value= listas.getValue();
+             if(value.getId()==person.getId()){
+                 Messagebox.show("cambia", "Cancel", Messagebox.OK, Messagebox.EXCLAMATION);
+             }
+         } */  
+     
     
     @Override
     public void doAfterCompose(Component comp) {
@@ -140,31 +184,39 @@ public class Cmanagercontroller extends SelectorComposer<Component> {
                 listabox.setModel( dataModel );
                 listabox.setItemRenderer( new Rendererpersonas() );
                 
-              
-       
-              
-              
+                
+                
+                
+                
+                
+            /*    final Execution  execute = Executions.getCurrent();
+                Cperson persona=(Cperson) execute.getArg().get("persona");
+                dataModel.add( persona);
+                listabox.setModel(dataModel);
+                listabox.setItemRenderer( new Rendererpersonas() );
+              */  
+            
             }
             catch ( Exception e ) {
               
                 e.printStackTrace();
             }
 
-
      }
     
     
     
+    
     //------------------------------------------- inicio añadir---------------------------------------------------------------------
+  
     
-    
-    public void reload(Cperson person){
-        
 
-        List<Cperson> lista = dataModel.getInnerList();
+
+     
+       // listabox.setItemRenderer( new Rendererpersonas() );
         
         
-        while(lista.listIterator().hasNext()){
+      /*  while(lista.listIterator().hasNext()){
             
             if(dataModel.listIterator().next().getId()==person.getId()){
                 Messagebox.show("cambia", "Cancel", Messagebox.OK, Messagebox.EXCLAMATION);
@@ -191,7 +243,7 @@ public class Cmanagercontroller extends SelectorComposer<Component> {
       //  listabox.setItemRenderer( new Rendererpersonas() );
        //escribir lo modificado fin  
         
-    }
+    
     
     
     
