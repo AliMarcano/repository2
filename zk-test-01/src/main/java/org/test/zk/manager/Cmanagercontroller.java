@@ -18,6 +18,8 @@ import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.select.SelectorComposer;
 import org.zkoss.zk.ui.select.annotation.Listen;
 import org.zkoss.zk.ui.select.annotation.Wire;
+import org.zkoss.zul.Auxhead;
+import org.zkoss.zul.Button;
 import org.zkoss.zul.ListModelList;
 import org.zkoss.zul.Listbox;
 import org.zkoss.zul.Listcell;
@@ -26,6 +28,8 @@ import org.zkoss.zul.ListitemRenderer;
 import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Window;
 
+import com.lowagie.text.pdf.PushbuttonField;
+
 
 public class Cmanagercontroller extends SelectorComposer<Component> {
 
@@ -33,12 +37,12 @@ public class Cmanagercontroller extends SelectorComposer<Component> {
     private static final long serialVersionUID = 7423111049335041046L;
    
     protected ListModelList< Cperson > dataModel = new ListModelList<Cperson>();
+    protected ListModelList<Cperson> aux =  new ListModelList<Cperson>(); 
+    protected int aquiesta;
+    
     
     public class Rendererpersonas implements ListitemRenderer<Cperson>{
-        
-        
 
-        
         
         @Override
         public void render( Listitem lista, Cperson persona, int arg2 ) throws Exception {
@@ -100,50 +104,12 @@ public class Cmanagercontroller extends SelectorComposer<Component> {
 
     @Wire
     Listbox listabox;
+    @Wire
+    Button idmodify; 
+   
     
    
-    public void getpersonas(Cperson personP) {
-        
-        //List<Cperson> person = new ArrayList<Cperson>();
-        
-        //person=dataModel;
-        Set<Cperson> Se = dataModel.getSelection();
-        
-        //el error es dataModel me viene vacio itente varias formas pero no funciono 
-        
-        
-        for (Iterator<Cperson> i = Se.iterator(); i.hasNext();) {
-             Cperson persona = i.next();
-            
-             Messagebox.show("entra", "Cancel", Messagebox.OK, Messagebox.EXCLAMATION);
-             
-            if (persona.getId()== personP.getId()){
-                Messagebox.show("cambia", "Cancel", Messagebox.OK, Messagebox.EXCLAMATION);
-                
-                //person.add(tmp);
-            }
-        }
-        
-    }
-    
-   // public void reload( Cperson person){
-
-     //Listitem itera = listabox.getSelectedItem();
-     
-    // for(Listitem sele :  )){
-         
-   //  }
-     
-     
-     /*
-         for(Listitem listas: itera){
-             Cperson value= listas.getValue();
-             if(value.getId()==person.getId()){
-                 Messagebox.show("cambia", "Cancel", Messagebox.OK, Messagebox.EXCLAMATION);
-             }
-         } */  
-     
-    
+   
     @Override
     public void doAfterCompose(Component comp) {
 
@@ -161,6 +127,8 @@ public class Cmanagercontroller extends SelectorComposer<Component> {
                 dataModel.add( persona2 );
                 dataModel.add( persona3 );
                 dataModel.add( persona4 );
+                
+             
                 
               //-hasta aqui si tenemos una "base de datos" seria cuestion se hacer el metodo que selecione uno por 
               // uno para ir agregando data model  
@@ -183,18 +151,7 @@ public class Cmanagercontroller extends SelectorComposer<Component> {
                 dataModel.setMultiple( true ); //por si quieres elecion multiple en la lista
                 listabox.setModel( dataModel );
                 listabox.setItemRenderer( new Rendererpersonas() );
-                
-                
-                
-                
-                
-                
-            /*    final Execution  execute = Executions.getCurrent();
-                Cperson persona=(Cperson) execute.getArg().get("persona");
-                dataModel.add( persona);
-                listabox.setModel(dataModel);
-                listabox.setItemRenderer( new Rendererpersonas() );
-              */  
+
             
             }
             catch ( Exception e ) {
@@ -204,50 +161,9 @@ public class Cmanagercontroller extends SelectorComposer<Component> {
 
      }
     
-    
-    
-    
+
     //------------------------------------------- inicio añadir---------------------------------------------------------------------
   
-    
-
-
-     
-       // listabox.setItemRenderer( new Rendererpersonas() );
-        
-        
-      /*  while(lista.listIterator().hasNext()){
-            
-            if(dataModel.listIterator().next().getId()==person.getId()){
-                Messagebox.show("cambia", "Cancel", Messagebox.OK, Messagebox.EXCLAMATION);
-            }
-           
-           //Cperson person2= Selecteditem.iterator().next();
-           
-           Messagebox.show(person.getName()+"entra", "Cancel", Messagebox.OK, Messagebox.EXCLAMATION);
-
-        }
-        
-      /*  
-        while( Cperson ){
-            
-            Messagebox.show(person.getName()+"segundo1.0", "Cancel", Messagebox.OK, Messagebox.EXCLAMATION);
-            if(iterador.next().getId()  ==person.getId()){
-                Messagebox.show(person.getName()+"segundo", "Cancel", Messagebox.OK, Messagebox.EXCLAMATION);
-               // Cperson person= Selecteditem.iterator().next();    
-                //dataModel.   ( person.getName() );
-                
-            }     
-         }*/
-      //  listabox.setModel( dataModel );
-      //  listabox.setItemRenderer( new Rendererpersonas() );
-       //escribir lo modificado fin  
-        
-    
-    
-    
-    
-    
     @Listen ("onClick=#idadd")
     public void botonadd(Event event){
         //en comentarios porque ? 
@@ -256,13 +172,10 @@ public class Cmanagercontroller extends SelectorComposer<Component> {
        Window win = ( Window ) Executions.createComponents("/dialog.zul",null , null); //llama a la pagina dialog como una ventana emergente
        win.doModal();
     }
-    
-    
+
     //------------------------------------------- inicio Delete--------------------------------------------------------------------- 
     
-    @SuppressWarnings( { "rawtypes", "unchecked" } )
-    
-    
+    @SuppressWarnings( { "rawtypes", "unchecked" } )   
     @Listen ("onClick=#idDelete")
     public void botondelete(Event event){
         Set<Cperson> Selecteditem = dataModel.getSelection();
@@ -312,8 +225,11 @@ public class Cmanagercontroller extends SelectorComposer<Component> {
     @Listen ("onClick=#idmodify")
     public void botonmodificar(Event event){
         
-        
+        aux = dataModel;
         Set<Cperson> Selecteditem = dataModel.getSelection();
+        aquiesta=dataModel.getSelection().size();
+        Messagebox.show( aquiesta+"registro", "Error", Messagebox.OK, Messagebox.EXCLAMATION );
+        
         
         if( Selecteditem != null && Selecteditem.size()>0){
             Cperson person = Selecteditem.iterator().next();
@@ -321,6 +237,9 @@ public class Cmanagercontroller extends SelectorComposer<Component> {
             Map<String,Object> arg = new HashMap<String,Object>();
             
             arg.put("personmodify", person);
+            arg.put( "idmodify", idmodify );
+         
+            
             Window win = ( Window ) Executions.createComponents("/dialog.zul",null,arg); //llama a la pagina dialog como una ventana emergente
             win.doModal();
             
@@ -333,4 +252,16 @@ public class Cmanagercontroller extends SelectorComposer<Component> {
         
     }
     
+   //evento que edita el model en la persona y permite volver a renderizar el model 
+    
+    @Listen("onFinaldialog=#idmodify")
+    public void fin(Event evento) {
+        Cperson persona = (Cperson) evento.getData();
+        
+        dataModel.getElementAt( aquiesta ).setId( persona.getId() );
+        dataModel.getElementAt( aquiesta ).setName( persona.getName());
+        listabox.setModel( dataModel );
+        listabox.setItemRenderer( new Rendererpersonas() );
+      
+    }
 }

@@ -11,9 +11,11 @@ import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Execution;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.event.Event;
+import org.zkoss.zk.ui.event.Events;
 import org.zkoss.zk.ui.select.SelectorComposer;
 import org.zkoss.zk.ui.select.annotation.Listen;
 import org.zkoss.zk.ui.select.annotation.Wire;
+import org.zkoss.zul.Button;
 import org.zkoss.zul.Datebox;
 import org.zkoss.zul.Label;
 import org.zkoss.zul.ListModelList;
@@ -31,7 +33,15 @@ public class Cdialogcontroller extends SelectorComposer<Component> {
     protected Cmanagercontroller mana = new Cmanagercontroller();
     protected ListModelList< Cperson > dataModel = new ListModelList<Cperson>();
     protected ListModelList<String> sexo = new ListModelList<String>();//select sexo
-
+    protected Cperson person;
+    protected Cperson person2;
+    protected Component botonmo;
+ 
+    protected ListModelList< Cperson > modelauxi = new ListModelList<Cperson>();
+    protected ListModelList< Cperson > modelauxi2 = new ListModelList<Cperson>();
+        
+        
+    
     @Wire
     Window windowpersona;
     @Wire
@@ -58,12 +68,12 @@ public class Cdialogcontroller extends SelectorComposer<Component> {
     Label labelcomen;
     @Wire
     Textbox textcomenta; 
-    
+
     @Override
     public void doAfterCompose(Component comp) {
 
             try {
-                
+             
                 super.doAfterCompose(comp);
                 fecha.setFormat( "dd-MM-yyyy" );//arreglamos el error de formato, dandole un formato deseado en tiempo de ejecucion
                 //cargamos al modelo las opciones
@@ -75,47 +85,49 @@ public class Cdialogcontroller extends SelectorComposer<Component> {
                 selectgenero.setSelectedIndex( 0 );
                 sexo.addToSelection( "Femenino" );
                 
-                final Execution execution = Executions.getCurrent();
-                Cperson personmodify =(Cperson)execution.getArg().get( "personmodify" );
                 
-                textid.setValue( personmodify.getId() );
-                textnombre.setValue( personmodify.getName() );
-                textapellido.setValue( personmodify.getSecondname() );
-                if(personmodify.getGenero() == 0 ){
+                final Execution execution = Executions.getCurrent();
+
+                person =(Cperson)execution.getArg().get( "personmodify" );
+                botonmo= (Component) execution.getArg().get("idmodify");
+                
+                textid.setValue( person.getId() );
+                textnombre.setValue( person.getName() );
+                textapellido.setValue( person.getSecondname() );
+                if(person.getGenero() == 0 ){
                     sexo.addToSelection( "Femenino" );
                 }else{
                     sexo.addToSelection( "Masculino" );
                 }              
-                fecha.setValue( java.sql.Date.valueOf( personmodify.getNacio() )  );
-                textcomenta.setValue( personmodify.getComentario() );//aqui cargamos todo a la vista
+                fecha.setValue( java.sql.Date.valueOf( person.getNacio() )  );
+                textcomenta.setValue( person.getComentario() );//aqui cargamos todo a la vista
           
+
                 
             }
             catch ( Exception e ) {
               
                 e.printStackTrace();
             }
+   }
 
-
-     }
-    
-  
     @Listen("onClick=#idaceptar")
     public void onClickaceptar (Event event){
-        
-        
-            Messagebox.show("ID = "+textid.getValue()+" Nombre= "+textnombre.getValue()+" Apellido= "+textapellido.getValue()+" Comentario= "+ textcomenta.getValue(), "Aceptar", Messagebox.OK, Messagebox.INFORMATION);
-        
-            Cperson persona = new Cperson(textid.getValue(), textnombre.getValue(), textapellido.getValue(), 0, null , textcomenta.getValue());
+       
+            boolean i=false;
+            person = new Cperson(textid.getValue(), textnombre.getValue(), textapellido.getValue(), 0, null , textcomenta.getValue());
+           while(i==false){
+            if(person.getName()==""){
+                Messagebox.show("algun campo esta en blanco" , "Error", Messagebox.OK, Messagebox.EXCLAMATION );
+                
+            }else{
+                Events.echoEvent( new Event( "onFinaldialog", botonmo, person ) );       
+               windowpersona.detach();//detach se encarga de cerrar la ventana   
+               i=true;
+            }
             
-            mana.getpersonas( persona );
-    
-            windowpersona.detach();//detach se encarga de cerrar la ventana
-   
-            //Map<String,Object> arg = new HashMap<String,Object>();
-            
-            //arg.put( "reload", persona ); 
-          //System.out.println("Hello Accept desu");
+         }
+       
     }   
     @Listen("onClick=#idcancelar")
     public void onClickcancelar(Event event){
