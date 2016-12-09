@@ -9,7 +9,7 @@
         <row>
           <label id="labelid" value="ID:" width="150px" />
           
-          <textbox id="textid" value="" width="130px" tabindex="1" >  
+          <textbox id="textid" value="" width="130px" tabindex="1" constraint="no empty" >  
             <attribute w:name= "doKeyPress_">
               <![CDATA[
                 function(evt)
@@ -26,27 +26,51 @@
         
         <row>
           <label id="labelnombre" value="Primer nombre:" width="150px" />
-          <textbox id="textnombre" value="" width="180px" tabindex="2" />
+          <textbox id="textnombre" value="" width="180px" tabindex="2"  constraint="no empty">
+             <attribute w:name= "doKeyPress_">
+              <![CDATA[
+                function(evt)
+                {
+                    if(!this._shallIgnore(evt,"qwertyuioplkjhgfdsazxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM"))
+                        this.$doKeyPress_(ent);//valida que solo sean numeros
+                }
+                       
+              ]]>
+            </attribute> 
+        
+          </textbox>
+         
         </row>
         
         <row>
           <label id="labelapellido" value="Apellido:" width="150px" />
-          <textbox id="textapellido" value="" width="180px" tabindex="3" />
+          <textbox id="textapellido" value="" width="180px" tabindex="3"  constraint="no empty">
+                       <attribute w:name= "doKeyPress_">
+              <![CDATA[
+                function(evt)
+                {
+                    if(!this._shallIgnore(evt,"qwertyuioplkjhgfdsazxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM"))
+                        this.$doKeyPress_(ent);//valida que solo sean numeros
+                }
+                       
+              ]]>
+            </attribute>  
+          </textbox>>
         </row>
         
         <row>
           <label id="labelfecha" value="Fecha De Nacimiento:" width="150px" />
-          <datebox id="fecha" width="150px"  tabindex="4"/> <!-- formato no funciona en el .zul-->
+          <datebox id="fecha" width="150px"  tabindex="4" constraint="no empty, no future: now or never" /> <!-- formato no funciona en el .zul-->
         </row>
         
         <row>
-          <label id="labelgenero" value="Genero:" width="150px" />
-          <selectbox id="selectgenero" tabindex="5"/>
+          <label id="labelgenero" value="Genero:" width="150px"  />
+          <selectbox id="selectgenero" tabindex="5" />
         </row>
         
         <row>
-          <label id="labelcomen" value="Comentario:" width="150px" />
-          <textbox id="textcomenta" value="" width="200px" tabindex="6" rows="5" />
+          <label id="labelcomen" value="Comentario:" width="150px"/>
+          <textbox id="textcomenta" value="" width="200px" tabindex="6" rows="5"  constraint="no empty" />
         </row>
         
         
