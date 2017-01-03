@@ -1,9 +1,9 @@
-package org.test.zk.dao;
+package org.test.zk.pdatamodel;
 
 import java.io.Serializable;
 import java.time.LocalDate;
 
-public class Cperson implements Serializable {
+public class TBLperson implements Serializable {
    
     private static final long serialVersionUID = -6867180606799067089L;
    
@@ -18,7 +18,7 @@ public class Cperson implements Serializable {
     //generate getters and setters
     //constructor
     
-    public Cperson ( String Id, String rename, String resecondname, int generos, LocalDate cumple, String  describe ){//el nombre es el debe ser el mismo de la clase
+    public TBLperson ( String Id, String rename, String resecondname, int generos, LocalDate cumple, String  describe ){//el nombre es el debe ser el mismo de la clase
          this.strId = Id;
          this.name = rename;
          this.secondname = resecondname;
